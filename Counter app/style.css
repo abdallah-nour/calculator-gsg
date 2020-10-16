@@ -1,0 +1,124 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.btn:hover{
+    cursor: pointer;
+    filter:contrast(75%);
+}
+.btn:active{
+    /* outline: 4px; */
+}
+.main-header{
+    background-color:whitesmoke;
+    height:55px;
+    padding:20px;
+    display:flex;
+    align-items: center;
+}
+.main-header > *{
+    margin-right:10px;
+    font-weight:bold;
+}
+.main-header .nmb-product-div{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:2px;
+    
+    width:60px;
+    height:25px;
+    background-color:blue;
+    border-radius:30px;
+    color:white;
+    
+}
+/* Dashboard */
+.dashboard{
+    margin:20px 70px;
+}
+.reset-btn{
+    border:0;
+    width:32px;
+    height:32px;
+    padding:7px;
+    font-size:15px;
+    outline:0;
+    background-color:rgb(88, 219, 0);
+}
+.table{
+    display:flex;
+    align-items:center;
+    width:90px;
+    height:190px;
+    justify-content: space-between;
+}
+.table >*{
+    margin-right:10px;
+    display:flex;
+    flex-direction:column;
+    height:160px;
+    justify-content: space-between;
+}
+
+.column-2>*,.column-3>*
+,.column-2>*>*,.column-3>*>*
+{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.column-1{
+    margin-right:25px;
+}
+.column-1 .nmb-item-div-active{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:7px 10px;
+    font-size:20px;
+    background-color:blue;
+    border-radius:3px;
+    color:white;
+}
+.column-1 .nmb-item-div-nActive{
+    padding:7px 10px;
+    font-size:20px;
+    background-color:rgb(255, 196, 0);
+    border-radius:3px;
+    color:black;
+}
+.table .plus-minus-btn{
+    border:0;
+    width:32px;
+    height:32px;
+    padding:7px;
+    font-size:15px;
+    outline:0;
+}
+.column-2 .plus-btn{
+    background-color:gray;
+}
+.column-3 .minus-btn{
+    background-color:rgb(1, 199, 199);
+}
+.plus, .minus{
+    color:black;
+}
+.circle{
+    background-color:white;
+    width:17px;
+    height:17px;
+    border-radius:100%;
+}
+
+
+
+
+/*
+*) change the table from columns to rows
+*) then you should repeat the row in the JS file.
+*) 
+*/

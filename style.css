@@ -1,0 +1,40 @@
+*{
+    box-sizing:border-box;
+    background-color:rgb(47, 47, 47);
+}
+.main-header .main-header-txt{
+    text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:50px;
+    color:rgb(236, 236, 236);
+}
+.search-form{
+    text-align: center;
+}
+.search-form .search-box{
+    border:0px;
+    border-radius: 10px;
+    width:250px;
+    height:45px;
+    background-color:white;
+    font-size: 20px;
+    color:rgb(0, 0, 0);
+    font-weight:bold;
+    padding-left:12px;
+    margin-right:15px;
+    outline:0;
+}
+.search-form .btn{
+    border:0px;
+    border-radius: 10px;
+    width:150px;
+    height:40px;
+    background-color:rgb(80, 0, 0);
+    font-size: 20px;
+    color:white;
+}
+.search-result>*{
+    /* display:block;
+    width:500px;
+    height: 500px; */
+}
