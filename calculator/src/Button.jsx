@@ -1,14 +1,10 @@
 import React from 'react';
 import './Button.css';
 class Button extends React.Component {
-    btn_click = (e)=>{
-        console.log(e.target);
-
-    }
     render() {
         return (
             <div className="container">
-                <input id="btn" className="btn" type="button" onClick={(e)=>this.btn_click(e)} value={this.props.btn_value} style={{backgroundColor:this.props.backgroundColor, color:this.props.fontColor, width:this.props.width, textAlign:this.props.txt_align, paddingLeft:this.props.padding_left}}  />
+                <input id="btn" className="btn" type="button" value={this.props.btn_value} style={{backgroundColor:this.props.backgroundColor, color:this.props.fontColor, width:this.props.width, textAlign:this.props.txt_align, paddingLeft:this.props.padding_left}}  />
                 
             </div>
         );
