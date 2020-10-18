@@ -9,4 +9,11 @@
     margin:10px;
     color:rgb(233, 233, 233);
     font-family: 'Roboto', sans-serif;
+    cursor:pointer;
+}
+.btn:hover{
+    filter:brightness(85%) contrast(70%);
+}
+.btn:active{
+    filter:invert(40%);
 }
