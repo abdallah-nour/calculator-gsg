@@ -3,7 +3,7 @@ import Button from './Button'
 import Row from './Row';
 import './App.css';
 import Result from './Result_screen';
-// will add name attribute for every btn, it value give the type of the 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,26 +11,11 @@ class App extends React.Component {
       screen_value: 0,
       pre_value: null,
       opr1: null,
-      nmb1: null
+      opr2: null,
+      nmb1: null,
+      nmb2: null
     };
   }
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     arr_btn: [
-  //     ]
-  //   }
-  // }
-  // generateBtnObj = () => {
-  //   let obj;
-  //   let arr = [];
-  //   // for numbers (0-9)
-  //   for (let i = 0; i < 10; i++) {
-  //     obj = { value: i, to_clear: false };
-  //     arr.push(obj);
-  //   }
-  //   this.setState({ arr_btn: arr });
-  // }
   handle_click = (e) => {
     let value = e.target.value;
     if (!value) return;// this if value equal undefined.
@@ -38,9 +23,8 @@ class App extends React.Component {
     else if (!isNaN(value)) this.addNumber(value);
     else if (this.isOperation(value)) this.addOperation(value);
     else if (value === '.' && !(this.state.screen_value + '').includes('.')) this.addNumber(value);
-    else if (value === '+/-') this.setState({screen_value:-this.state.screen_value});
-    // else if (value === '%') this.setState({screen_value:this.state.screen_value});
-    else if (value === "=") this.calculate(value);
+    else if (value === '+/-') this.setState({ screen_value: -this.state.screen_value });
+    else if (value === "=") this.calculate();
     this.setState({ pre_value: value });
   }
   ////////////////
@@ -48,31 +32,65 @@ class App extends React.Component {
   ////////////////
   //**why is this function will assign value for nmb1 after handle_click finish (after the last log()) */
   // this make log() for undefined, cause the assign for the value happen after log().
-  addNumber = (value) => {                 // when current value is a number.
-    if (this.isOperation(this.state.pre_value))        // when input number after input the operation.
-      this.setState({ nmb1: this.state.screen_value, screen_value: value });
-    else                                    // when last input is number, we add current value to it.
-      this.setState({ screen_value: (this.state.screen_value === 0 ? value : this.state.screen_value + value) });
+  addNumber = (number) => {                            // when current value is a number.
+    if (this.isOperation(this.state.pre_value) && !this.state.opr2) {        // when input number after input the operation.
+      this.setState({ nmb1: this.state.screen_value, screen_value: number });
+      console.log('NOW shit: ' + this.state.nmb1);
+    } else if (this.isOperation(this.state.pre_value) && this.state.opr2) {        // when input number after input the operation.
+      this.setState({ nmb2: this.state.screen_value, screen_value: number });
+      console.log('SHIT: ' + this.state.nmb2);
+    }
+    else                                               // when last input is number, we add current value to it.
+      this.setState({ screen_value: (this.state.screen_value === 0 ? number : this.state.screen_value + number) });
   }
   ////////////////
   addOperation = (operation) => {
-    if (!this.state.opr1)
-      this.setState({ opr1: operation, nmb1: this.state.screen_operation });
-    else if (this.isOperation(this.state.pre_operation))
+    if (!this.state.opr1) // when input is first operation
+      this.setState({ opr1: operation, nmb1: this.state.screen_value });
+    else if (this.isOperation(this.state.pre_value))  // here when you reAssign operation.
       this.setState({ opr1: operation });
-    else {
-      // here you should do the calculation on the
-      // this.calculate();
-      // then make the nmb1 equal the result from calculate
-      // and opr1 equal the operation variable.
+    else if (!this.state.opr2) { // here when we input second operation.
+      if (!['×', '÷'].includes(this.state.opr1) && ['×', '÷'].includes(operation)) {
+        this.setState({ nmb2: this.state.screen_value, opr2: operation });
+      } else {
+        this.setState({
+          screen_value: this.operate(+this.state.nmb1, this.state.opr1, +this.state.screen_value),
+          nmb1: this.state.screen_value,
+          opr1: operation
+        });
+      }
+    }
+    else { // here when input is 3rd operation.
+      this.setState({
+        screen_value: this.operate(+this.state.nmb1,
+          this.state.opr1, +this.operate(this.state.nmb2,
+            this.state.opr2, this.state.screen_value)),
+        nmb1: this.state.screen_value,
+        nmb2: null,
+        opr1: operation,
+        opr2: null,
+        pre_value: null
+      });
     }
   }
-  calculate = (value) => {
-    if (value === "=") {
+  calculate = () => {
+    if (!this.state.nmb2) {
       this.setState({
         screen_value: this.operate(+this.state.nmb1, this.state.opr1, +this.state.screen_value),
         nmb1: this.state.screen_value,
         opr1: null,
+        pre_value: null
+      });
+    }
+    else if (this.state.nmb2) {
+      this.setState({
+        screen_value: this.operate(+this.state.nmb1,
+          this.state.opr1, +this.operate(this.state.nmb2,
+            this.state.opr2, this.state.screen_value)),
+        nmb1: this.state.screen_value,
+        nmb2: null,
+        opr1: null,
+        opr2: null,
         pre_value: null
       });
     }
@@ -123,8 +141,6 @@ class App extends React.Component {
             <Button btn_value='.' backgroundColor="#212638" fontColor="white" />
             <Button btn_value='=' backgroundColor="#34509E" fontColor="white" />
           </Row>
-          {/* ± /n ÷ × − */}
-          {/* #212638  #34509E  #8490FF */}
         </section>
       </div>
     );
